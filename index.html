@@ -191,7 +191,7 @@
                             });
     
                             // Iniciar el lector con la primera cámara disponible
-                            scanner.start(constraints);
+                            scanner.start(cameras[0]);
                         } else {
                             console.error('No se encontraron cámaras en el dispositivo.');
                         }
