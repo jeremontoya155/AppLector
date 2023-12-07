@@ -109,18 +109,23 @@
     <footer></footer>
 
     <script>
-        scanner = new Instascan.Scanner({
-            video: document.getElementById('preview'),
-            mirror: false,
-            // Resto de los parámetros...
-        });
+        
     
         document.addEventListener("DOMContentLoaded", function () {
             // Selector de cámaras
             const cameraSelector = document.getElementById('cameraSelector');
     
+            const constraints = {
+                video: {
+                    facingMode: {
+                        exact: "environment" // Utiliza la cámara trasera
+                    }
+                }
+            };
+
+
             // Configuración e inicialización del lector
-            let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+            let scanner = new Instascan.Scanner({ video: document.getElementById('preview'),mirror:false });
     
             // Cargar datos desde el archivo Base.json
             fetch('Base.json')
