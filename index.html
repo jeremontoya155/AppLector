@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lector Farmacia Sanchez Antoniolli</title>
+    <link rel="icon" type="image/png" href="img/Logo.png"/>
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<style>
+        /* Agrega este bloque de estilo */
+        .mi-popup-clase {
+        background-color: white !important;
+        color: black !important;
+    }
+
+    .mi-titulo-clase {
+        color: black !important;
+    }
+    #logo {
+            max-width: 30em; /* Tamaño máximo del logo */
+            width: 100%; /* Hacer la imagen responsive */
+            height: auto;
+            margin-top: -6em;
+        }
+    .swal2-popup {
+    color:black;
+    }
+    
+    .swal2-title {
+    color: rgb(13, 11, 11) !important;
+    }
+    
+    body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(45deg, #33b1b1, #1a6e6e); /* Fondo con degradado */
+    overflow: hidden;
+    }
+    
+    h1 {
+    font-size: 2em;
+    margin-top:-1em ;
+    margin-bottom: 10px;
+    text-align: center;
+    color: white; /* Color del texto blanco */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+    }
+    video{margin-bottom:4em ;}
+
+      #preview {
+            width: 100%;
+            max-width: 40vw; /* Usar unidades relativas para el ancho máximo */
+            max-height: 50vh; /* Usar unidades relativas para la altura máxima */
+            margin-bottom: 20px;
+            border: 5px solid white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+    
+    #cameraSelector {
+    margin-bottom: 20px;
+    color: white; /* Color del texto blanco */
+    }
+    
+    /* Estilo para el mensaje personalizado de SweetAlert */
+    .mensaje-personalizado {
+    text-align: left;
+    color: white;
+    }
+    
+    /* Estilo adicional para el botón de SweetAlert */
+    .mi-boton-clase {
+    background-color: #ff7675; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 10px 20px; /* Espaciado interno */
+    border-radius: 5px; /* Esquinas redondeadas */
+    cursor: pointer;
+    transition: background-color 0.3s; /* Transición suave */
+    }
+    
+    .mi-boton-clase:hover {
+    background-color: #d63031; /* Cambiar color en el hover */
+    }
+  
+    </style>
+</head>
+<body>
+    <header><img id="logo" src="img/Logo.png" alt="Logo" />
+    </header>
+
+    
+    <h1>ESCANEE SU PRODUCTO</h1>
+    
+    <!-- Selector de cámaras -->
+    <label for="cameraSelector">Selecciona una cámara:</label>
+    <select id="cameraSelector"></select>
+    
+    <video id="preview" playsinline></video>
+    <footer></footer>
+
+    <script>
+        scanner = new Instascan.Scanner({
+    video: document.getElementById('preview'),
+    mirror: false,
+    // Resto de los parámetros...
+});
+        document.addEventListener("DOMContentLoaded", function () {
+            // Selector de cámaras
+            const cameraSelector = document.getElementById('cameraSelector');
+
+            // Configuración e inicialización del lector
+            let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+
+            // Manejar la lectura del código QR
+            scanner.addListener('scan', function (content) {
+                // Redirigir a una URL después de escanear el código QR
+                      // Convertir la cadena JSON a un objeto JavaScript
+        // Reemplazar comillas simples con comillas dobles
+var jsonStringConComillasDobles = content.replace(/'/g, '"');
+
+
+// Agregar comillas dobles a las claves
+var jsonStringConClavesConComillasDobles = jsonStringConComillasDobles.replace(/(\w+)\s*:/g, '"$1":');
+
+// Usar eval para convertir la cadena en un objeto
+var objetoDesdeString = eval('(' + jsonStringConClavesConComillasDobles + ')');
+      
+// Construir el mensaje de alerta
+// Construir el mensaje de alerta personalizado
+let mensajeAlerta;
+if (objetoDesdeString.Precio===objetoDesdeString["Precio Con Descuento"]) {
+ mensajeAlerta = "PRODUCTO: " + objetoDesdeString.Detalle +"\n\n" +"PRECIO:$" + objetoDesdeString.Precio;}
+ else{
+    // Mensaje de alerta formateado
+ mensajeAlerta = "Producto: " + objetoDesdeString.Detalle + "\n\n\n" +
+                    "Precio: $" + objetoDesdeString.Precio + "\n\n\n" +
+                    "Precio Con Descuento: $" + objetoDesdeString["Precio Con Descuento"];
+}
+
+ 
+
+// Mostrar el SweetAlert con título modificado y texto blanco
+Swal.fire({
+    title: 'BIENVENIDO',
+    text: mensajeAlerta,
+    confirmButtonText: 'Regresar',
+    background: '#333',
+    customClass: {
+        title: 'mi-titulo-clase',
+        popup: 'mi-popup-clase',
+        content: 'mi-contenido-clase',
+        confirmButton: 'mi-boton-clase',
+        closeButton: 'mi-boton-clase' // Agregado para cambiar el color del botón de cerrar
+    }
+});
+            });
+
+            // Obtener cámaras disponibles
+            Instascan.Camera.getCameras().then(function (cameras) {
+                if (cameras.length > 0) {
+                    // Llenar el selector de cámaras
+                    cameras.forEach((camera, index) => {
+                        const option = document.createElement('option');
+                        option.value = index;
+                        option.text = camera.name || `Cámara ${index + 1}`;
+                        cameraSelector.add(option);
+                    });
+
+                    // Actualizar el lector cuando se cambia la cámara
+                    cameraSelector.addEventListener('change', function () {
+                        const selectedCamera = cameras[cameraSelector.value];
+                        scanner.start(selectedCamera);
+                    });
+
+                    // Iniciar el lector con la primera cámara disponible
+                    scanner.start(cameras[0]);
+                } else {
+                    console.error('No se encontraron cámaras en el dispositivo.');
+                }
+            }).catch(function (e) {
+                console.error(e);
+            });
+        });
+    </script>
+    
+
+</body>
+</html>
