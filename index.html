@@ -29,6 +29,11 @@
         color: black !important;
     }
 
+    .custom-confirm-button {
+    background-color: #1a6e6e!important ;/* Cambia estos valores según tu preferencia */
+    color: #fff; /* Color del texto */
+    /* Otros estilos que desees aplicar */
+}
     .mi-titulo-clase {
         color: black !important;
     }
@@ -70,7 +75,7 @@
     margin-bottom: 2em;
     text-align: center;
     color: white; /* Color del texto blanco */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+    /*text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
     }
     h2 {
     font-size: 2em;
@@ -78,7 +83,7 @@
     font: "Futura";
     text-align: center;
     color: white; /* Color del texto blanco */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+    /*text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
     }
     video{margin-bottom:4em ;}
 
@@ -118,6 +123,8 @@
     .mi-boton-clase:hover {
     background-color: #d63031; /* Cambiar color en el hover */
     }
+
+    
   
     </style>
 </head>
@@ -184,7 +191,9 @@ document.addEventListener("DOMContentLoaded", function () {
         text: `PRECIO: $${precio}`,
         confirmButtonText: 'OK',
         customClass: {
-            content: 'custom-swal-content', // Clase CSS personalizada para el contenido
+            confirmButton: 'custom-confirm-button',
+            content: 'custom-swal-content',
+            // Clase CSS personalizada para el contenido
         },
     });
 
@@ -199,8 +208,10 @@ document.addEventListener("DOMContentLoaded", function () {
         html: `<div><strong>PRECIO</strong>: $${precio}</div><div><strong>PRECIO CON DESCUENTO</strong>:$${precioConDescuento}</div>`,
         confirmButtonText: 'OK',
         customClass: {
+            confirmButton: 'custom-confirm-button',
             content: 'custom-swal-content', // Clase CSS personalizada para el contenido
-        },
+        }
+        ,
     });
                 }
                 } else {
