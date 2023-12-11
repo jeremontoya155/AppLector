@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+
     <title>Lector Farmacia Sanchez Antoniolli</title>
     <link rel="icon" type="image/png" href="img/Logo.png"/>
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
@@ -113,8 +116,11 @@
     <h2><label for="cameraSelector">Seleccione una cámara:</label></h2>
     <select id="cameraSelector"></select>
     
-    <video id="preview" playsinline></video>
+    <video id="preview" class="video-back" playsinline></video>
     <footer></footer>
+
+    <script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+
 
     <script>
 document.addEventListener("DOMContentLoaded", function () {
