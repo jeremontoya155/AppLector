@@ -167,23 +167,48 @@ document.addEventListener("DOMContentLoaded", function () {
                 const codigoBarraEscaneado = objetoDesdeString["Codigo de barra"];
                 const productoEncontrado = datos_lista.find(producto => producto["Codigo de barra"] === codigoBarraEscaneado);
 
-                let mensajeAlerta;
+                let mensajeAlerta,m1,m2,m3;
+
                 if (productoEncontrado) {
                     const detalle = productoEncontrado.Detalle;
                     const precio = productoEncontrado.Precio;
                     const precioConDescuento = productoEncontrado["Precio Con Descuento"];
 
                     if (precio === precioConDescuento) {
-                        mensajeAlerta = `EL producto seleccionado es: ${detalle}\n\nPRECIO: $${precio}`;
+                        //mensajeAlerta = `EL producto seleccionado es: ${detalle}\n\nPRECIO: $${precio}`;
+                        /*m1="Producto seleccionado "+detalle+"\n"
+                        m2="Precio de:"+precio+"\n"
+                        mensajeAlerta=m1+m2*/
+                        Swal.fire({
+        title: `${detalle}`,
+        text: `PRECIO: $${precio}`,
+        confirmButtonText: 'OK',
+        customClass: {
+            content: 'custom-swal-content', // Clase CSS personalizada para el contenido
+        },
+    });
+
                     } else {
-                        mensajeAlerta = `EL producto seleccionado es: ${detalle}\n\n\nPrecio: $${precio}\n\n\nPrecio con Descuento: $${precioConDescuento}`;
-                    }
+                       // mensajeAlerta = `EL producto seleccionado es: ${detalle}\n\n\nPrecio: $${precio}\n\n\nPrecio con Descuento: $${precioConDescuento}`;     
+                       /*m1="Producto seleccionado "+detalle+"\n"
+                        m2="Precio de:$"+precio+"\n"
+                    m3="Precio con descuento:$"+precioConDescuento+"\n"         
+                    mensajeAlerta=m1+m2+m3*/
+                    Swal.fire({
+        title: `${detalle}`,
+        html: `<div>Precio: $${precio}</div><div>Precio con Descuento: $${precioConDescuento}</div>`,
+        confirmButtonText: 'OK',
+        customClass: {
+            content: 'custom-swal-content', // Clase CSS personalizada para el contenido
+        },
+    });
+                }
                 } else {
                     mensajeAlerta = "Producto no encontrado en la base de datos.";
                 }
 
                 // Mostrar el SweetAlert con título modificado y texto blanco
-                Swal.fire({
+                /*Swal.fire({
                     title: 'BIENVENIDO',
                     text: mensajeAlerta,
                     confirmButtonText: 'Regresar',
@@ -195,7 +220,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         confirmButton: 'mi-boton-clase',
                         closeButton: 'mi-boton-clase'
                     }
-                });
+                });*/
             });
 
             // Obtener cámaras disponibles
