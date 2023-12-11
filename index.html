@@ -118,97 +118,97 @@
 
     <script>
         
-    
         document.addEventListener("DOMContentLoaded", function () {
-            // Selector de cámaras
-            const cameraSelector = document.getElementById('cameraSelector');
-    
-            const constraints = {
-                video: {
-                    facingMode: {
-                        exact: "environment" // Utiliza la cámara trasera
+    // Selector de cámaras
+    const cameraSelector = document.getElementById('cameraSelector');
+
+    const constraints = {
+        video: {
+            facingMode: "environment" // Forzar la cámara trasera
+        }
+    };
+
+    // Configuración e inicialización del lector
+    let scanner = new Instascan.Scanner({ video: document.getElementById('preview'), mirror: false });
+
+    // Cargar datos desde el archivo Base.json
+    fetch('Base.json')
+        .then(response => response.json())
+        .then(datos_lista => {
+            // Manejar la lectura del código QR
+            scanner.addListener('scan', function (content) {
+                // Convertir la cadena JSON a un objeto JavaScript
+                var jsonStringConComillasDobles = content.replace(/'/g, '"');
+                var jsonStringConClavesConComillasDobles = jsonStringConComillasDobles.replace(/(\w+)\s*:/g, '"$1":');
+                var objetoDesdeString = eval('(' + jsonStringConClavesConComillasDobles + ')');
+
+                // Buscar el producto en la base de datos
+                const codigoBarraEscaneado = objetoDesdeString["Codigo de barra"];
+                const productoEncontrado = datos_lista.find(producto => producto["Codigo de barra"] === codigoBarraEscaneado);
+
+                let mensajeAlerta;
+                if (productoEncontrado) {
+                    const detalle = productoEncontrado.Detalle;
+                    const precio = productoEncontrado.Precio;
+                    const precioConDescuento = productoEncontrado["Precio Con Descuento"];
+
+                    if (precio === precioConDescuento) {
+                        mensajeAlerta = `EL producto seleccionado es: ${detalle}\n\nPRECIO: $${precio}`;
+                    } else {
+                        mensajeAlerta = `EL producto seleccionado es: ${detalle}\n\n\nPrecio: $${precio}\n\n\nPrecio con Descuento: $${precioConDescuento}`;
                     }
+                } else {
+                    mensajeAlerta = "Producto no encontrado en la base de datos.";
                 }
-            };
 
+                // Mostrar el SweetAlert con título modificado y texto blanco
+                Swal.fire({
+                    title: 'BIENVENIDO',
+                    text: mensajeAlerta,
+                    confirmButtonText: 'Regresar',
+                    background: '#333',
+                    customClass: {
+                        title: 'mi-titulo-clase',
+                        popup: 'mi-popup-clase',
+                        content: 'mi-contenido-clase',
+                        confirmButton: 'mi-boton-clase',
+                        closeButton: 'mi-boton-clase'
+                    }
+                });
+            });
 
-            // Configuración e inicialización del lector
-            let scanner = new Instascan.Scanner({ video: document.getElementById('preview'),mirror:false });
-    
-            // Cargar datos desde el archivo Base.json
-            fetch('Base.json')
-                .then(response => response.json())
-                .then(datos_lista => {
-                    // Manejar la lectura del código QR
-                    scanner.addListener('scan', function (content) {
-                        // Convertir la cadena JSON a un objeto JavaScript
-                        var jsonStringConComillasDobles = content.replace(/'/g, '"');
-                        var jsonStringConClavesConComillasDobles = jsonStringConComillasDobles.replace(/(\w+)\s*:/g, '"$1":');
-                        var objetoDesdeString = eval('(' + jsonStringConClavesConComillasDobles + ')');
-    
-                        // Buscar el producto en la base de datos
-                        const codigoBarraEscaneado = objetoDesdeString["Codigo de barra"];
-                        const productoEncontrado = datos_lista.find(producto => producto["Codigo de barra"] === codigoBarraEscaneado);
-    
-                        let mensajeAlerta;
-                        if (productoEncontrado) {
-                            const detalle = productoEncontrado.Detalle;
-                            const precio = productoEncontrado.Precio;
-                            const precioConDescuento = productoEncontrado["Precio Con Descuento"];
-    
-                            if (precio === precioConDescuento) {
-                                mensajeAlerta = `EL producto seleccionado es: ${detalle}\n\nPRECIO: $${precio}`;
-                            } else {
-                                mensajeAlerta = `EL producto seleccionado es: ${detalle}\n\n\nPrecio: $${precio}\n\n\nPrecio con Descuento: $${precioConDescuento}`;
-                            }
-                        } else {
-                            mensajeAlerta = "Producto no encontrado en la base de datos.";
-                        }
-    
-                        // Mostrar el SweetAlert con título modificado y texto blanco
-                        Swal.fire({
-                            title: 'BIENVENIDO',
-                            text: mensajeAlerta,
-                            confirmButtonText: 'Regresar',
-                            background: '#333',
-                            customClass: {
-                                title: 'mi-titulo-clase',
-                                popup: 'mi-popup-clase',
-                                content: 'mi-contenido-clase',
-                                confirmButton: 'mi-boton-clase',
-                                closeButton: 'mi-boton-clase'
-                            }
-                        });
+            // Obtener cámaras disponibles
+            Instascan.Camera.getCameras().then(function (cameras) {
+                if (cameras.length > 0) {
+                    // Forzar la cámara trasera como primera instancia
+                    const selectedCamera = cameras.find(camera => camera.facing === 'environment') || cameras[0];
+
+                    // Llenar el selector de cámaras
+                    cameras.forEach((camera, index) => {
+                        const option = document.createElement('option');
+                        option.value = index;
+                        option.text = camera.name || `Cámara ${index + 1}`;
+                        cameraSelector.add(option);
                     });
-    
-                    // Obtener cámaras disponibles
-                    Instascan.Camera.getCameras().then(function (cameras) {
-                        if (cameras.length > 0) {
-                            // Llenar el selector de cámaras
-                            cameras.forEach((camera, index) => {
-                                const option = document.createElement('option');
-                                option.value = index;
-                                option.text = camera.name || `Cámara ${index + 1}`;
-                                cameraSelector.add(option);
-                            });
-    
-                            // Actualizar el lector cuando se cambia la cámara
-                            cameraSelector.addEventListener('change', function () {
-                                const selectedCamera = cameras[cameraSelector.value];
-                                scanner.start(selectedCamera);
-                            });
-    
-                            // Iniciar el lector con la primera cámara disponible
-                            scanner.start(cameras[0]);
-                        } else {
-                            console.error('No se encontraron cámaras en el dispositivo.');
-                        }
-                    }).catch(function (e) {
-                        console.error(e);
+
+                    // Actualizar el lector cuando se cambia la cámara
+                    cameraSelector.addEventListener('change', function () {
+                        const selectedCamera = cameras[cameraSelector.value];
+                        scanner.start(selectedCamera);
                     });
-                })
-                .catch(error => console.error('Error al cargar los datos:', error));
-        });
+
+                    // Iniciar el lector con la cámara seleccionada
+                    scanner.start(selectedCamera);
+                } else {
+                    console.error('No se encontraron cámaras en el dispositivo.');
+                }
+            }).catch(function (e) {
+                console.error(e);
+            });
+        })
+        .catch(error => console.error('Error al cargar los datos:', error));
+});
+
     </script>
     
     
