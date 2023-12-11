@@ -117,7 +117,8 @@
     <footer></footer>
 
     <script>
-document.addEventListener("DOMContentLoaded", function () {
+        
+        document.addEventListener("DOMContentLoaded", function () {
     // Selector de cámaras
     const cameraSelector = document.getElementById('cameraSelector');
 
@@ -179,8 +180,8 @@ document.addEventListener("DOMContentLoaded", function () {
             // Obtener cámaras disponibles
             Instascan.Camera.getCameras().then(function (cameras) {
                 if (cameras.length > 0) {
-                    // Tomar la última cámara como primera instancia
-                    const selectedCamera = cameras[cameras.length - 1];
+                    // Forzar la cámara trasera como primera instancia
+                    const selectedCamera = cameras.find(camera => camera.facing === 'environment') || cameras[0];
 
                     // Llenar el selector de cámaras
                     cameras.forEach((camera, index) => {
@@ -207,7 +208,6 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => console.error('Error al cargar los datos:', error));
 });
-
 
     </script>
     
