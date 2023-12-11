@@ -12,6 +12,17 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <style>
+    @font-face {
+  font-family: 'Futura';
+  src: url('fonts/futura\ medium\ bt.ttf') format('truetype');
+  /* Agrega más formatos de fuente según sea necesario (woff, woff2, etc.) */
+}
+
+* {
+  font-family: 'Futura', sans-serif;
+  /* Puedes aplicar la fuente a todo el cuerpo del documento o a elementos específicos */
+}
+
         /* Agrega este bloque de estilo */
         .mi-popup-clase {
         background-color: white !important;
@@ -25,14 +36,14 @@
             max-width: 30em; /* Tamaño máximo del logo */
             width: 100%; /* Hacer la imagen responsive */
             height: auto;
-            margin-top: -6em;
+            margin-top: -2em;
         }
     .swal2-popup {
-    color:black;
+    color:rgb(0, 0, 0);
     }
     
     .swal2-title {
-    color: rgb(13, 11, 11) !important;
+    color: #1a6e6e !important;
     }
     
     body {
@@ -48,6 +59,11 @@
     overflow: hidden;
     }
     
+
+    header{
+        margin-top:2em ;
+        margin-bottom: -1em;
+    }
     h1 {
     font-size: 2em;
     margin-top:-1em ;
@@ -59,7 +75,7 @@
     h2 {
     font-size: 2em;
     margin-top:-1em ;
-    
+    font: "Futura";
     text-align: center;
     color: white; /* Color del texto blanco */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
@@ -70,7 +86,7 @@
             width: 100%;
             max-width: 40vw; /* Usar unidades relativas para el ancho máximo */
             max-height: 50vh; /* Usar unidades relativas para la altura máxima */
-            margin-bottom: 20px;
+            margin-bottom: 5em;
             border: 5px solid white;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
@@ -113,7 +129,7 @@
     <h1>ESCANEE SU PRODUCTO</h1>
     
     <!-- Selector de cámaras -->
-    <h2><label for="cameraSelector">Seleccione una cámara:</label></h2>
+    <h2><label for="cameraSelector">SELECCIONE UNA CAMARA:</label></h2>
     <select id="cameraSelector"></select>
     
     <video id="preview" class="video-back" playsinline></video>
@@ -171,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     title: 'BIENVENIDO',
                     text: mensajeAlerta,
                     confirmButtonText: 'Regresar',
-                    background: '#333',
+                    background: '#1AC5EB',
                     customClass: {
                         title: 'mi-titulo-clase',
                         popup: 'mi-popup-clase',
