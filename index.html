@@ -48,7 +48,15 @@
     h1 {
     font-size: 2em;
     margin-top:-1em ;
-    margin-bottom: 10px;
+    margin-bottom: 2em;
+    text-align: center;
+    color: white; /* Color del texto blanco */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+    }
+    h2 {
+    font-size: 2em;
+    margin-top:-1em ;
+    
     text-align: center;
     color: white; /* Color del texto blanco */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
@@ -68,13 +76,13 @@
     
     #cameraSelector {
     margin-bottom: 20px;
-    color: white; /* Color del texto blanco */
+    color: rgb(17, 13, 13); /* Color del texto blanco */
     }
     
     /* Estilo para el mensaje personalizado de SweetAlert */
     .mensaje-personalizado {
     text-align: left;
-    color: white;
+    color: rgb(9, 7, 7);
     }
     
     /* Estilo adicional para el botón de SweetAlert */
@@ -102,7 +110,7 @@
     <h1>ESCANEE SU PRODUCTO</h1>
     
     <!-- Selector de cámaras -->
-    <label for="cameraSelector">Selecciona una cámara:</label>
+    <h2><label for="cameraSelector">Seleccione una cámara:</label></h2>
     <select id="cameraSelector"></select>
     
     <video id="preview" playsinline></video>
