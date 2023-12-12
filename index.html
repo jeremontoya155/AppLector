@@ -41,7 +41,7 @@
             max-width: 30em; /* Tamaño máximo del logo */
             width: 100%; /* Hacer la imagen responsive */
             height: auto;
-            margin-top: -2em;
+            margin-top: 1,5em;
         }
     .swal2-popup {
     color:rgb(0, 0, 0);
@@ -52,7 +52,7 @@
     }
     
     body {
-    font-family: 'Roboto', sans-serif;
+   
     margin: 0;
     padding: 0;
     display: flex;
@@ -70,21 +70,32 @@
         margin-bottom: -1em;
     }
     h1 {
+        font-weight: normal; /* Para quitar la negrita */
+
     font-size: 2em;
     margin-top:-1em ;
     margin-bottom: 2em;
     text-align: center;
     color: white; /* Color del texto blanco */
     /*text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+    
     }
     h2 {
-    font-size: 2em;
+        font-weight: normal; /* Para quitar la negrita */
+
+    font-size: 1.5em;
     margin-top:-1em ;
     font: "Futura";
     text-align: center;
     color: white; /* Color del texto blanco */
     /*text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
     }
+    strong {
+            font-weight: bold;
+            color: #F2BC08; /* O el color que desees */
+            font-style: italic; /* Para aplicar la cursiva */
+
+        }
     video{margin-bottom:4em ;}
 
       #preview {
@@ -124,19 +135,23 @@
     background-color: #d63031; /* Cambiar color en el hover */
     }
 
-    
-  
+    .centrar {
+            text-align: center;
+        }
+    footer{
+        margin-top: 3em;
+    }
     </style>
 </head>
 <body>
     <header><img id="logo" src="img/Logo.png" alt="Logo" />
     </header>
 
-    
-    <h1>ESCANEE SU PRODUCTO</h1>
+    <div class="centrar"><h1>ESCANEÁ EL <strong>QR</strong> <br> DEL PRODUCTO QUE DESEAS Y <br> <strong>CONOCE SU PRECIO!</strong></h1>
+    </div>    
     
     <!-- Selector de cámaras -->
-    <h2><label for="cameraSelector">SELECCIONE UNA CAMARA:</label></h2>
+    <h2><label for="cameraSelector">SELECCIONE UNA <br>CAMARA:</label></h2>
     <select id="cameraSelector"></select>
     
     <video id="preview" class="video-back" playsinline></video>
