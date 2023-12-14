@@ -197,9 +197,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (productoEncontrado) {
                     const detalle = productoEncontrado.Detalle;
                     const precio = productoEncontrado.Precio;
+                    const descuento= productoEncontrado.Descuento;
                     const precioConDescuento = productoEncontrado["Precio Con Descuento"];
 
-                    if (precio === precioConDescuento) {
+                    if (precio === precioConDescuento || descuento==="A" ) {
+                        console.log(typeof(precio))
                         //mensajeAlerta = `EL producto seleccionado es: ${detalle}\n\nPRECIO: $${precio}`;
                         /*m1="Producto seleccionado "+detalle+"\n"
                         m2="Precio de:"+precio+"\n"
@@ -216,6 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
                     } else {
+                        console.log(typeof(precio))
                        // mensajeAlerta = `EL producto seleccionado es: ${detalle}\n\n\nPrecio: $${precio}\n\n\nPrecio con Descuento: $${precioConDescuento}`;     
                        /*m1="Producto seleccionado "+detalle+"\n"
                         m2="Precio de:$"+precio+"\n"
@@ -223,7 +226,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     mensajeAlerta=m1+m2+m3*/
                     Swal.fire({
         title: `${detalle}`,
-        html: `<div><strong>PRECIO</strong>: $${precio}<br></div><div><strong>DESCUENTO</strong>:$${precioConDescuento}</div>`,
+        html: `<div><strong>Precio</strong>: $${precio}<br></div>
+        <div><strong>DESCUENTO</strong>:%${descuento}<br>/div>
+        <div><strong>Precio Final</strong>:$${precioConDescuento}</div>
+        `,
         confirmButtonText: 'OK',
         customClass: {
             confirmButton: 'custom-confirm-button',
