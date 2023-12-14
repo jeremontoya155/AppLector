@@ -218,7 +218,21 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
                     } else {
-                        console.log(typeof(precio))
+                        if (descuento.length>3) {
+                            Swal.fire({
+        title: `${detalle}`,
+        html: `<div><strong>Precio</strong>: $${precio}<br></div>
+        <div><strong>DESCUENTO</strong>:${descuento}<br></div>`,
+        confirmButtonText: 'OK',
+        customClass: {
+            confirmButton: 'custom-confirm-button',
+            content: 'custom-swal-content', // Clase CSS personalizada para el contenido
+        }
+        ,
+    });
+                            
+                        } else {
+                            console.log(typeof(precio))
                        // mensajeAlerta = `EL producto seleccionado es: ${detalle}\n\n\nPrecio: $${precio}\n\n\nPrecio con Descuento: $${precioConDescuento}`;     
                        /*m1="Producto seleccionado "+detalle+"\n"
                         m2="Precio de:$"+precio+"\n"
@@ -236,6 +250,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         ,
     });
+                            
+                        }
+
+
+                       
                 }
                 } else {
                     mensajeAlerta = "Producto no encontrado en la base de datos.";
