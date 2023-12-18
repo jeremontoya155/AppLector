@@ -202,13 +202,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     if (precio === precioConDescuento || descuento==="A" ) {
                         console.log(typeof(precio))
+                        let precioMuestra=parseInt(precio)
                         //mensajeAlerta = `EL producto seleccionado es: ${detalle}\n\nPRECIO: $${precio}`;
                         /*m1="Producto seleccionado "+detalle+"\n"
                         m2="Precio de:"+precio+"\n"
                         mensajeAlerta=m1+m2*/
                         Swal.fire({
         title: `${detalle}`,
-        text: `PRECIO: $${precio}`,
+        text: `PRECIO: $${precioMuestra}`,
         confirmButtonText: 'OK',
         customClass: {
             confirmButton: 'custom-confirm-button',
@@ -218,10 +219,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
                     } else {
+                        let mostrar=parseInt(precio)
                         if (descuento.length>3) {
                             Swal.fire({
         title: `${detalle}`,
-        html: `<div><strong>Precio</strong>: $${precio}<br></div>
+        html: `<div><strong>Precio</strong>: $${mostrar}<br></div>
         <div><strong>DESCUENTO</strong>:${descuento}<br></div>`,
         confirmButtonText: 'OK',
         customClass: {
@@ -233,6 +235,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             
                         } else {
                             let pDescuento=parseInt(precioConDescuento)
+                            let pFinal=parseInt(precio)
                             console.log(typeof(precio))
                        // mensajeAlerta = `EL producto seleccionado es: ${detalle}\n\n\nPrecio: $${precio}\n\n\nPrecio con Descuento: $${precioConDescuento}`;     
                        /*m1="Producto seleccionado "+detalle+"\n"
@@ -241,7 +244,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     mensajeAlerta=m1+m2+m3*/
                     Swal.fire({
         title: `${detalle}`,
-        html: `<div><strong>Precio</strong>: $${precio}<br></div>
+        html: `<div><strong>Precio</strong>: $${pFinal}<br></div>
         <div><strong>DESCUENTO</strong>:%${descuento}<br></div>
         <div><strong>Precio Final</strong>:$${pDescuento}<br></div>`,
         confirmButtonText: 'OK',
