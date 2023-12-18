@@ -232,6 +232,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
                             
                         } else {
+                            let pDescuento=parseInt(precioConDescuento)
                             console.log(typeof(precio))
                        // mensajeAlerta = `EL producto seleccionado es: ${detalle}\n\n\nPrecio: $${precio}\n\n\nPrecio con Descuento: $${precioConDescuento}`;     
                        /*m1="Producto seleccionado "+detalle+"\n"
@@ -242,7 +243,7 @@ document.addEventListener("DOMContentLoaded", function () {
         title: `${detalle}`,
         html: `<div><strong>Precio</strong>: $${precio}<br></div>
         <div><strong>DESCUENTO</strong>:%${descuento}<br></div>
-        <div><strong>Precio Final</strong>:$${precioConDescuento}<br></div>`,
+        <div><strong>Precio Final</strong>:$${pDescuento}<br></div>`,
         confirmButtonText: 'OK',
         customClass: {
             confirmButton: 'custom-confirm-button',
