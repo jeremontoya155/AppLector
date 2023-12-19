@@ -1,19 +1,18 @@
-
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
-
-
     <title>Lector Farmacia Sanchez Antoniolli</title>
-    <link rel="icon" type="image/png" href="img/Logo.png"/>
+    <link rel="icon" type="image/png" href="img/Logo.png" />
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://rawgit.com/cozmo/jsQR/master/dist/jsQR.js"></script>
 
-<style>
-    @font-face {
+    <style>
+        @font-face {
   font-family: 'Futura';
   src: url('fonts/futura\ medium\ bt.ttf') format('truetype');
   /* Agrega más formatos de fuente según sea necesario (woff, woff2, etc.) */
@@ -23,193 +22,265 @@
   font-family: 'Futura', sans-serif;
   /* Puedes aplicar la fuente a todo el cuerpo del documento o a elementos específicos */
 }
+        /* Estilos CSS aquí */
 
         /* Agrega este bloque de estilo */
         .mi-popup-clase {
-        background-color: white !important;
-        color: black !important;
-    }
-
-    .custom-confirm-button {
-    background-color: #1a6e6e!important ;/* Cambia estos valores según tu preferencia */
-    color: #fff; /* Color del texto */
-    /* Otros estilos que desees aplicar */
-}
-    .mi-titulo-clase {
-        color: black !important;
-    }
-    #logo {
-            max-width: 30em; /* Tamaño máximo del logo */
-            width: 100%; /* Hacer la imagen responsive */
-            height: auto;
-            margin-top: 1,5em;
+            background-color: white !important;
+            color: black !important;
         }
-    .swal2-popup {
-    color:rgb(0, 0, 0);
-    }
-    
-    .swal2-title {
-    color: #1a6e6e !important;
-    }
-    
-    body {
-   
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background: linear-gradient(45deg, #33b1b1, #1a6e6e); /* Fondo con degradado */
-    overflow: hidden;
-    }
-    
 
-    header{
-        margin-top:2em ;
-        margin-bottom: -1em;
-    }
-    h1 {
-        font-weight: normal; /* Para quitar la negrita */
+        .custom-confirm-button {
+            background-color: #1a6e6e!important;
+            /* Cambia estos valores según tu preferencia */
+            color: #fff;
+            /* Color del texto */
+            /* Otros estilos que desees aplicar */
+        }
 
-    font-size: 2em;
-    margin-top:-1em ;
-    margin-bottom: 2em;
-    text-align: center;
-    color: white; /* Color del texto blanco */
-    /*text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
-    
-    }
-    h2 {
-        font-weight: normal; /* Para quitar la negrita */
+        .mi-titulo-clase {
+            color: black !important;
+        }
 
-    font-size: 1.5em;
-    margin-top:-1em ;
-    font: "Futura";
-    text-align: center;
-    color: white; /* Color del texto blanco */
-    /*text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
-    }
-    
-    video{margin-bottom:4em ;}
-
-      #preview {
+        #logo {
+            max-width: 30em;
+            /* Tamaño máximo del logo */
             width: 100%;
-            max-width: 40vw; /* Usar unidades relativas para el ancho máximo */
-            max-height: 50vh; /* Usar unidades relativas para la altura máxima */
+            /* Hacer la imagen responsive */
+            height: auto;
+            margin-top: 1, 5em;
+        }
+
+        .swal2-popup {
+            color: rgb(0, 0, 0);
+        }
+
+        .swal2-title {
+            color: #1a6e6e !important;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #33b1b1, #1a6e6e);
+            /* Fondo con degradado */
+            overflow: hidden;
+        }
+
+        header {
+            margin-top: 2em;
+            margin-bottom: -1em;
+        }
+
+        h1 {
+            font-weight: normal;
+            /* Para quitar la negrita */
+            font-size: 2em;
+            margin-top: -1em;
+            margin-bottom: 2em;
+            text-align: center;
+            color: white;
+            /* Color del texto blanco */
+            /*text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+        }
+
+        h2 {
+            font-weight: normal;
+            /* Para quitar la negrita */
+            font-size: 1.5em;
+            margin-top: -1em;
+            font: "Futura";
+            text-align: center;
+            color: white;
+            /* Color del texto blanco */
+            /*text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+        }
+
+        video {
+            margin-bottom: 4em;
+        }
+
+        #preview {
+            width: 100%;
+            max-width: 40vw;
+            /* Usar unidades relativas para el ancho máximo */
+            max-height: 50vh;
+            /* Usar unidades relativas para la altura máxima */
             margin-bottom: 5em;
             border: 5px solid white;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
 
-    
-    #cameraSelector {
-    margin-bottom: 20px;
-    color: rgb(17, 13, 13); /* Color del texto blanco */
-    }
-    
-    /* Estilo para el mensaje personalizado de SweetAlert */
-    .mensaje-personalizado {
-    text-align: left;
-    color: rgb(9, 7, 7);
-    }
-    
-    /* Estilo adicional para el botón de SweetAlert */
-    .mi-boton-clase {
-    background-color: #ff7675; /* Color de fondo */
-    color: white; /* Color del texto */
-    border: none; /* Sin borde */
-    padding: 10px 20px; /* Espaciado interno */
-    border-radius: 5px; /* Esquinas redondeadas */
-    cursor: pointer;
-    transition: background-color 0.3s; /* Transición suave */
-    }
-    
-    .mi-boton-clase:hover {
-    background-color: #d63031; /* Cambiar color en el hover */
-    }
-    .amarillo {
+        #cameraSelector {
+            margin-bottom: 20px;
+            color: rgb(17, 13, 13);
+            /* Color del texto blanco */
+        }
+
+        .mensaje-personalizado {
+            text-align: left;
+            color: rgb(9, 7, 7);
+        }
+
+        .mi-boton-clase {
+            background-color: #ff7675;
+            /* Color de fondo */
+            color: white;
+            /* Color del texto */
+            border: none;
+            /* Sin borde */
+            padding: 10px 20px;
+            /* Espaciado interno */
+            border-radius: 5px;
+            /* Esquinas redondeadas */
+            cursor: pointer;
+            transition: background-color 0.3s;
+            /* Transición suave */
+        }
+
+        .mi-boton-clase:hover {
+            background-color: #d63031;
+            /* Cambiar color en el hover */
+        }
+
+        .amarillo {
             font-weight: bold;
-            color: #F2BC08; /* O el color que desees */
-            font-style: italic; /* Para aplicar la cursiva */
-
+            color: #F2BC08;
+            /* O el color que desees */
+            font-style: italic;
+            /* Para aplicar la cursiva */
         }
 
-    .centrar {
+        .centrar {
             text-align: center;
-            
         }
-    footer{
-        margin-top: 3em;
-    }
+
+        footer {
+            margin-top: 3em;
+        }
     </style>
 </head>
+
 <body>
     <header><img id="logo" src="img/Logo.png" alt="Logo" />
     </header>
 
     <div class="centrar"><h1>ESCANEÁ EL <strong class="amarillo">QR</strong> <br> DEL PRODUCTO QUE DESEAS Y <br> <strong class="amarillo">CONOCE SU PRECIO!</strong></h1>
-    </div>    
-    
+    </div>
+
     <!-- Selector de cámaras -->
-    <h2><label for="cameraSelector">SELECCIONE UNA <br>CAMARA:</label></h2>
-    <select id="cameraSelector"></select>
-    
-    <video id="preview" class="video-back" playsinline></video>
+    <h2 class="subtitulo"><label for="cameraSelector">SELECCIONE UNA <br>CAMARA:</label></h2>
+    <select class="subtitulo" id="cameraSelector"></select>
+
+    <div id="qr-container">
+        
+        <video id="preview" class="video-back" playsinline></video>
+        <canvas style="display:none;"></canvas>
+    </div>
     <footer></footer>
 
     <script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-
+    
 
     <script>
-document.addEventListener("DOMContentLoaded", function () {
-    // Selector de cámaras
-    const cameraSelector = document.getElementById('cameraSelector');
+        document.addEventListener("DOMContentLoaded", function () {
+            // Detección del agente de usuario para saber si es un iPhone
+            const esIPhone = /iPhone/i.test(navigator.userAgent);
 
-    const constraints = {
-        video: {
-            facingMode: "environment" // Forzar la cámara trasera
-        }
-    };
+            // Selector de cámaras
+            const cameraSelector = document.getElementById('cameraSelector');
 
-    // Configuración e inicialización del lector
-    let scanner = new Instascan.Scanner({ video: document.getElementById('preview'), mirror: false });
+            const constraints = {
+                video: {
+                    facingMode: "environment" // Forzar la cámara trasera
+                }
+            };
+
+            // Configuración e inicialización del lector
+            let scanner = new Instascan.Scanner({ video: document.getElementById('preview'), mirror: false });
+
+            if (esIPhone) {
+    
+                
+  // Selector de cámaras
+  const cameraSelector = document.getElementById('cameraSelector');
+
+const constraints = {
+  video: {
+    facingMode: "environment" // Forzar la cámara trasera
+  }
+};
+
+// Configuración e inicialización del lector
+let scanner = new Instascan.Scanner({ video: document.getElementById('preview'), mirror: false });
+
+if (esIPhone) {
+
+// Obtener una lista de elementos con la clase 'subtitulo'
+var elementosConClase = document.getElementsByClassName('subtitulo');
+
+// Convertir la lista en un array para facilitar el manejo
+var elementosArray = Array.from(elementosConClase);
+
+// Iterar sobre cada elemento y eliminarlo
+elementosArray.forEach(function (elemento) {
+  elemento.remove();
+});
+
+  const video = document.querySelector('video');
+  const canvas = document.querySelector('canvas');
+  const canvasContext = canvas.getContext('2d');
+
+  navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+    .then(function (stream) {
+      video.srcObject = stream;
+      video.play();
+
+      video.addEventListener('loadedmetadata', function () {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        requestAnimationFrame(tick);
+      });
+    })
+    .catch(function (error) {
+      console.error('Error al acceder a la cámara:', error);
+    });
+
+  function tick() {
+    canvasContext.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const imageData = canvasContext.getImageData(0, 0, canvas.width, canvas.height);
 
     // Cargar datos desde el archivo Base.json
     fetch('Base.json')
-        .then(response => response.json())
-        .then(datos_lista => {
-            // Manejar la lectura del código QR
-            scanner.addListener('scan', function (content) {
-                // Convertir la cadena JSON a un objeto JavaScript
-                var jsonStringConComillasDobles = content.replace(/'/g, '"');
-                var jsonStringConClavesConComillasDobles = jsonStringConComillasDobles.replace(/(\w+)\s*:/g, '"$1":');
-                var objetoDesdeString = eval('(' + jsonStringConClavesConComillasDobles + ')');
-
-                // Buscar el producto en la base de datos
-                const codigoBarraEscaneado = objetoDesdeString["Codigo de barra"];
+      .then(response => response.json())
+      .then(datos_lista => {    
+        const code = jsQR(imageData.data, imageData.width, imageData.height);
+        if (code) {
+          // Parsear el JSON
+          try {
+            let dato=code.data
+            let valor=dato.replace(/'/g, '"')
+            var valorPrueba = valor.replace(/(\w+)\s*:/g, '"$1":');
+            var objetoDesdeString = eval('(' + valorPrueba + ')');
+            const codigoBarraEscaneado = objetoDesdeString["Codigo de barra"];
                 const productoEncontrado = datos_lista.find(producto => producto["Codigo de barra"] === codigoBarraEscaneado);
-
-                let mensajeAlerta,m1,m2,m3;
-
-                if (productoEncontrado) {
-                    const detalle = productoEncontrado.Detalle;
+            
+            if (productoEncontrado) {
+                const detalle = productoEncontrado.Detalle;
                     const precio = productoEncontrado.Precio;
                     const descuento= productoEncontrado.Descuento;
                     const precioConDescuento = productoEncontrado["Precio Con Descuento"];
 
-                    if (precio === precioConDescuento || descuento==="A" ) {
-                        console.log(typeof(precio))
-                        let precioMuestra=parseInt(precio)
-                        //mensajeAlerta = `EL producto seleccionado es: ${detalle}\n\nPRECIO: $${precio}`;
-                        /*m1="Producto seleccionado "+detalle+"\n"
-                        m2="Precio de:"+precio+"\n"
-                        mensajeAlerta=m1+m2*/
-                        Swal.fire({
+                if (precio===precioConDescuento || descuento==="A") {
+                    Swal.fire({
         title: `${detalle}`,
-        text: `PRECIO: $${precioMuestra}`,
+        text: `PRECIO: $${precio}`,
         confirmButtonText: 'OK',
         customClass: {
             confirmButton: 'custom-confirm-button',
@@ -217,9 +288,11 @@ document.addEventListener("DOMContentLoaded", function () {
             // Clase CSS personalizada para el contenido
         },
     });
+                    
 
-                    } else {
-                        let mostrar=parseInt(precio)
+                } else {
+                    
+                    let mostrar=parseInt(precio)
                         if (descuento.length>3) {
                             Swal.fire({
         title: `${detalle}`,
@@ -256,66 +329,175 @@ document.addEventListener("DOMContentLoaded", function () {
     });
                             
                         }
-
-
-                       
-                }
-                } else {
-                    mensajeAlerta = "Producto no encontrado en la base de datos.";
+                    
                 }
 
-                // Mostrar el SweetAlert con título modificado y texto blanco
-                /*Swal.fire({
-                    title: 'BIENVENIDO',
-                    text: mensajeAlerta,
-                    confirmButtonText: 'Regresar',
-                    background: '#1AC5EB',
+               
+                
+                
+            } else {
+                alert("Producto no disponible en este momento")
+            }    
+
+
+
+
+            
+          } catch (error) {
+            alert("Entro en el error")
+            let dato=code.data
+            let valor=dato.replace(/'/g, '"')
+            var valorPrueba = valor.replace(/(\w+)\s*:/g, '"$1":');
+            var valorUsar = eval('(' + valorPrueba + ')');
+            
+
+            
+            
+            //alert(code.data)
+            
+            
+          }
+          
+        }
+        setTimeout(function () {
+        requestAnimationFrame(tick);
+      }, 1000);
+      });
+  }
+}
+               
+            } 
+            else {
+                // Cargar datos desde el archivo Base.json
+                fetch('Base.json')
+                    .then(response => response.json())
+                    .then(datos_lista => {
+                        // Manejar la lectura del código QR
+                        scanner.addListener('scan', function (content) {
+                            // Resto del script relacionado con el escaneo de códigos QR
+                            // Resto del script relacionado con el escaneo de códigos QR
+// ...
+scanner.addListener('scan', function (content) {
+    // Convertir la cadena JSON a un objeto JavaScript
+    var jsonStringConComillasDobles = content.replace(/'/g, '"');
+    var jsonStringConClavesConComillasDobles = jsonStringConComillasDobles.replace(/(\w+)\s*:/g, '"$1":');
+    var objetoDesdeString = eval('(' + jsonStringConClavesConComillasDobles + ')');
+
+    // Buscar el producto en la base de datos
+    const codigoBarraEscaneado = objetoDesdeString["Codigo de barra"];
+    const productoEncontrado = datos_lista.find(producto => producto["Codigo de barra"] === codigoBarraEscaneado);
+
+    let mensajeAlerta, m1, m2, m3;
+
+    if (productoEncontrado) {
+        const detalle = productoEncontrado.Detalle;
+        const precio = productoEncontrado.Precio;
+        const descuento = productoEncontrado.Descuento;
+        const precioConDescuento = productoEncontrado["Precio Con Descuento"];
+
+        if (precio === precioConDescuento || descuento === "A") {
+            console.log(typeof (precio))
+            let precioMuestra = parseInt(precio);
+            Swal.fire({
+                title: `${detalle}`,
+                text: `PRECIO: $${precioMuestra}`,
+                confirmButtonText: 'OK',
+                customClass: {
+                    confirmButton: 'custom-confirm-button',
+                    content: 'custom-swal-content',
+                    // Clase CSS personalizada para el contenido
+                },
+            });
+
+        } else {
+            let mostrar = parseInt(precio)
+            if (descuento.length > 3) {
+                Swal.fire({
+                    title: `${detalle}`,
+                    html: `<div><strong>Precio</strong>: $${mostrar}<br></div>
+        <div><strong>DESCUENTO</strong>:${descuento}<br></div>`,
+                    confirmButtonText: 'OK',
                     customClass: {
-                        title: 'mi-titulo-clase',
-                        popup: 'mi-popup-clase',
-                        content: 'mi-contenido-clase',
-                        confirmButton: 'mi-boton-clase',
-                        closeButton: 'mi-boton-clase'
-                    }
-                });*/
-            });
+                        confirmButton: 'custom-confirm-button',
+                        content: 'custom-swal-content', // Clase CSS personalizada para el contenido
+                    },
+                });
 
-            // Obtener cámaras disponibles
-            Instascan.Camera.getCameras().then(function (cameras) {
-                if (cameras.length > 0) {
-                    // Tomar la última cámara como primera instancia
-                    const selectedCamera = cameras[cameras.length - 1];
+            } else {
+                let pDescuento = parseInt(precioConDescuento)
+                let pFinal = parseInt(precio)
+                console.log(typeof (precio))
+                Swal.fire({
+                    title: `${detalle}`,
+                    html: `<div><strong>Precio</strong>: $${pFinal}<br></div>
+        <div><strong>DESCUENTO</strong>:%${descuento}<br></div>
+        <div><strong>Precio Final</strong>:$${pDescuento}<br></div>`,
+                    confirmButtonText: 'OK',
+                    customClass: {
+                        confirmButton: 'custom-confirm-button',
+                        content: 'custom-swal-content', // Clase CSS personalizada para el contenido
+                    },
+                });
 
-                    // Llenar el selector de cámaras
-                    cameras.forEach((camera, index) => {
-                        const option = document.createElement('option');
-                        option.value = index;
-                        option.text = camera.name || `Cámara ${index + 1}`;
-                        cameraSelector.add(option);
-                    });
+            }
+        }
+    } else {
+        mensajeAlerta = "Producto no encontrado en la base de datos.";
+    }
 
-                    // Actualizar el lector cuando se cambia la cámara
-                    cameraSelector.addEventListener('change', function () {
-                        const selectedCamera = cameras[cameraSelector.value];
-                        scanner.start(selectedCamera);
-                    });
-
-                    // Iniciar el lector con la cámara seleccionada
-                    scanner.start(selectedCamera);
-                } else {
-                    console.error('No se encontraron cámaras en el dispositivo.');
-                }
-            }).catch(function (e) {
-                console.error(e);
-            });
-        })
-        .catch(error => console.error('Error al cargar los datos:', error));
+    // Mostrar el SweetAlert con título modificado y texto blanco
+    /*Swal.fire({
+        title: 'BIENVENIDO',
+        text: mensajeAlerta,
+        confirmButtonText: 'Regresar',
+        background: '#1AC5EB',
+        customClass: {
+            title: 'mi-titulo-clase',
+            popup: 'mi-popup-clase',
+            content: 'mi-contenido-clase',
+            confirmButton: 'mi-boton-clase',
+            closeButton: 'mi-boton-clase'
+        }
+    });*/
 });
+// ...
 
+                            // ...
+                        });
 
+                        // Obtener cámaras disponibles
+                        Instascan.Camera.getCameras().then(function (cameras) {
+                            if (cameras.length > 0) {
+                                // Tomar la última cámara como primera instancia
+                                const selectedCamera = cameras[cameras.length - 1];
+
+                                // Llenar el selector de cámaras
+                                cameras.forEach((camera, index) => {
+                                    const option = document.createElement('option');
+                                    option.value = index;
+                                    option.text = camera.name || `Cámara ${index + 1}`;
+                                    cameraSelector.add(option);
+                                });
+
+                                // Actualizar el lector cuando se cambia la cámara
+                                cameraSelector.addEventListener('change', function () {
+                                    const selectedCamera = cameras[cameraSelector.value];
+                                    scanner.start(selectedCamera);
+                                });
+
+                                // Iniciar el lector con la cámara seleccionada
+                                scanner.start(selectedCamera);
+                            } else {
+                                console.error('No se encontraron cámaras en el dispositivo.');
+                            }
+                        }).catch(function (e) {
+                            console.error(e);
+                        });
+                    })
+                    .catch(error => console.error('Error al cargar los datos:', error));
+            }
+        });
     </script>
-    
-    
-
 </body>
+
 </html>
